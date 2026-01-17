@@ -9,12 +9,21 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      "https://fire-detection-system-one.vercel.app",
-      "http://localhost:5173",
-    ],
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
+    origin: function (origin, callback) {
+      const allowedOrigins = [
+        "https://fire-detection-system-one.vercel.app",
+        "http://localhost:5173"
+      ];
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
