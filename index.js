@@ -8,25 +8,18 @@ dotenv.config();
 const app = express();
 
 
-app.use(express.json());
-
-const allowedOrigins = [
-  "https://fire-detection-system-one.vercel.app",
-  "http://localhost:5173",
-];
-
 const corsOptions = {
   origin: [
     "https://fire-detection-system-one.vercel.app",
     "https://fire-detection-system-one.vercel.app/",
     "http://localhost:5173"
   ],
-  methods: ["GET", "POST", "OPTIONS"],
+  methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
   credentials: true
 };
 
-app.use(cors(corsOptions));
+
 app.use(express.json());
 
 
