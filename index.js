@@ -25,6 +25,11 @@ app.use(express.json());
 
 app.use("/api/fires", firesRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Kryptonite API is running");
+});
+
+
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
