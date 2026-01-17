@@ -7,7 +7,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+
 app.use(express.json());
 
 const allowedOrigins = [
@@ -15,25 +15,19 @@ const allowedOrigins = [
   "http://localhost:5173",
 ];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      
-      if (!origin) return callback(null, true);
+const corsOptions = {
+  origin: [
+    "https://fire-detection-system-one.vercel.app",
+    "https://fire-detection-system-one.vercel.app/",
+    "http://localhost:5173"
+  ],
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+  credentials: true
+};
 
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      } else {
-        return callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
-    credentials: false,
-  })
-);
-
-app.options("*", cors());
+app.use(cors(corsOptions));
+app.use(express.json());
 
 
 app.use("/api/fires", firesRoutes);
