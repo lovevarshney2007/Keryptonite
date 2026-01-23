@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import firesRoutes from "./routes/fires.js";
+import chatRoutes from "./routes/chat.js";
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use(express.json());
 
 
 app.use("/api/fires", firesRoutes);
+app.use("/chat", chatRoutes);
 
 app.get("/", (req, res) => {
   res.send("Kryptonite API is running");

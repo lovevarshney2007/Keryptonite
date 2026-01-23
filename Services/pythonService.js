@@ -61,3 +61,20 @@ export async function analyzeImage(file) {
 
   return res.data;
 }
+
+export async function chatWithAI(userId, message) {
+  // Proxies the chat request to the Python backend
+  const res = await axios.post(`${PYTHON_BASE}/chat`, {
+    user_id: userId,
+    message: message,
+  });
+
+  return res.data;
+}
+
+export async function getChatHistory(userId) {
+  // Proxies the history request to the Python backend
+  const res = await axios.get(`${PYTHON_BASE}/chat/history/${userId}`);
+
+  return res.data;
+}

@@ -9,54 +9,49 @@ Kryptonite is a **Node.js backend proxy server** that connects a frontend applic
 ## 🚀 Live Backend
 
 **Base URL:**
-https://kryptonite-8k3u.vercel.app
-
+[https://keryptonite-8k3u.vercel.app](https://keryptonite-8k3u.vercel.app)
 
 **Health Check:**
-GET /api/health
-
+`GET /api/health`
 
 ---
 
 ## ✨ Features
 
-- 🌍 Fetch fire locations on map
-- 🔥 Fetch high-confidence fire regions
-- 🖼️ Upload image and get fire detection bounding boxes
-- 🧩 Acts as a proxy between frontend and ML backend
-- ☁️ Deployed on Vercel
+* 🌍 Fetch fire locations on an interactive map
+* 🔥 Fetch high-confidence fire regions
+* 🖼️ Upload images and get fire detection bounding boxes
+* 💬 Chat with AI Assistant (new)
+* 🧩 Acts as a proxy between the frontend and ML backend
+* ☁️ Deployed on Vercel
 
 ---
 
 ## 🏗️ Tech Stack
 
-- Node.js
-- Express.js
-- Axios
-- Multer
-- Vercel Serverless Functions
-- Python ML backend (external)
-
----
-
+* Node.js
+* Express.js
+* Axios
+* Multer
+* Vercel Serverless Functions
+* Python ML backend (external service)
 
 ---
 
 ## 🛣️ API Endpoints
 
-Base path:
-/api/fires
+### 🔥 Fire Detection Routes
 
-
-
+**Base path:** `/api/fires`
 
 ---
 
 ### 1️⃣ Get Fire Locations (Map)
 
-POST /api/fires/get_locations
+`POST /api/fires/get_locations`
 
-**Body (JSON):**
+**Request Body (JSON):**
+
 ```json
 {
   "country": "india",
@@ -64,41 +59,114 @@ POST /api/fires/get_locations
   "source": "VIIRS_SNPP_NRT",
   "day_range": 3
 }
+```
 
-Response:
-Returns an HTML map page
+**Response:**
+Returns an **HTML map page** showing detected fire locations.
 
+---
 
-2️⃣ Get High Confidence Fire Regions
-POST /api/fires/get_height_regions_area
+### 2️⃣ Get High-Confidence Fire Regions
 
-Body (JSON):
+`POST /api/fires/get_hight_regions_area`
+
+**Request Body (JSON):**
+
+```json
 {
   "country": "india",
   "state": "up",
   "source": "VIIRS_SNPP_NRT",
   "day_range": 3
 }
+```
 
-Response:
-Returns JSON data
+**Response:**
+Returns **JSON data** containing high-confidence fire region statistics.
 
+---
 
-3️⃣ Analyze Image (Fire Detection)
-POST /api/fires/draw_boxes_fire
+### 3️⃣ Analyze Image (Fire Detection)
 
-Body:
+`POST /api/fires/draw_boxes_fire`
 
-Type: form-data
+**Request Type:** `multipart/form-data`
 
-Key: image
+**Form Field:**
 
-Value: Image file
+* `image` → Image file
 
-Response:
+**Response (JSON):**
+
+```json
 {
   "image_base64": "...",
   "format": "jpeg"
 }
+```
 
+---
 
+## 💬 Chat Routes
+
+**Base path:** `/chat`
+
+---
+
+### 1️⃣ Send Message to AI
+
+`POST /chat`
+
+**Description:**
+Send a message to the AI assistant. The `user_id` is used to maintain conversation memory per user.
+
+**Request Body (JSON):**
+
+```json
+{
+  "user_id": "string",
+  "message": "string"
+}
+```
+
+**Response (JSON):**
+
+```json
+{
+  "response": "AI generated reply"
+}
+```
+
+---
+
+### 2️⃣ Get Chat History
+
+`GET /chat/history/{user_id}`
+
+**Description:**
+Fetch the complete chat history for a specific user.
+
+**Response (JSON):**
+
+```json
+{
+  "history": [
+    {
+      "role": "user",
+      "content": "Hello"
+    },
+    {
+      "role": "ai",
+      "content": "Hi! How can I help?"
+    }
+  ]
+}
+```
+
+---
+
+## ✅ Notes
+
+* All endpoints are CORS-enabled for frontend integration
+* Designed for serverless deployment on Vercel
+* Python ML backend is accessed via secure internal HTTP calls
