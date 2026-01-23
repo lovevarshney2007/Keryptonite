@@ -4,11 +4,11 @@ import {
   getLocations,
   getHighConfidence,
   analyzeImage,
+  chatWithAI, // Import the new function
 } from "../Services/pythonService.js";
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
-
 
 router.post("/get_locations", async (req, res) => {
   try {
@@ -20,7 +20,6 @@ router.post("/get_locations", async (req, res) => {
     res.status(500).json({ error: "get_locations failed" });
   }
 });
-
 
 router.post("/get_hight_regions_area", async (req, res) => {
   try {
@@ -55,6 +54,22 @@ router.post("/draw_boxes_fire", upload.single("image"), async (req, res) => {
   }
 });
 
+// --- NEW ROUTE ADDED BELOW ---
+router.post("/chat", async (req, res) => {
+  try {
+    const { user_id, message } = req.body;
 
+    // Basic validation
+    if (!user_id || !message) {
+      return res.status(400).json({ error: "user_id and message are required" });
+    }
+
+    const response = await chatWithAI({ user_id, message });
+    res.json(response);
+  } catch (error) {
+    console.error("Chat API Error:", error.message);
+    res.status(500).json({ error: "AI chat request failed" });
+  }
+});
 
 export default router;
