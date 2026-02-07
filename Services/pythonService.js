@@ -14,11 +14,11 @@ console.log("Python base:", process.env.PYTHON_BASE);
 
 
 export async function getLocations(params) {
-  const res = await axios.post(`${PYTHON_BASE}/get_locations`, null, {
+  const res = await axios.post(`${PYTHON_BASE}/api/map`, null, {
     params: {
       country: params.country,
       state: params.state,
-      source: params.source,
+      // source: params.source,
       day_range: params.day_range,
     },
   });
@@ -29,13 +29,13 @@ export async function getLocations(params) {
 
 export async function getHighConfidence(params) {
   const res = await axios.post(
-    `${PYTHON_BASE}/get_hight_regions_area`,
+    `${PYTHON_BASE}/api/get_high_region_area/get_hight_regions_area`,
     null,
     {
       params: {
         country: params.country,
         state: params.state,
-        source: params.source,
+        // source: params.source,
         day_range: params.day_range,
       },
     }
@@ -51,7 +51,7 @@ export async function analyzeImage(file) {
   form.append("file", file.buffer, file.originalname);
 
   const res = await axios.post(
-    `${PYTHON_BASE}/draw_boxes_fire`,
+    `${PYTHON_BASE}/api/fireYolo/draw_boxes_fire`,
     form,
     {
       headers: form.getHeaders(),
@@ -64,7 +64,7 @@ export async function analyzeImage(file) {
 
 export async function chatWithAI(userId, message) {
   // Proxies the chat request to the Python backend
-  const res = await axios.post(`${PYTHON_BASE}/chat`, {
+  const res = await axios.post(`http://54.196.216.231:8000/chat`, {
     user_id: userId,
     message: message,
   });
@@ -74,7 +74,7 @@ export async function chatWithAI(userId, message) {
 
 export async function getChatHistory(userId) {
   // Proxies the history request to the Python backend
-  const res = await axios.get(`${PYTHON_BASE}/chat/history/${userId}`);
+  const res = await axios.get(`http://54.196.216.231:8000/chat/history/${userId}`);
 
   return res.data;
 }

@@ -10,6 +10,8 @@ Kryptonite is a **Node.js backend proxy server** that connects a frontend applic
 
 **Base URL:**
 [https://keryptonite-8k3u.vercel.app](https://keryptonite-8k3u.vercel.app)
+https://keryptonite-8k3u.vercel.app
+
 
 **Health Check:**
 `GET /api/health`
@@ -56,7 +58,6 @@ Kryptonite is a **Node.js backend proxy server** that connects a frontend applic
 {
   "country": "india",
   "state": "up",
-  "source": "VIIRS_SNPP_NRT",
   "day_range": 3
 }
 ```
@@ -67,6 +68,8 @@ Returns an **HTML map page** showing detected fire locations.
 ---
 
 ### 2️⃣ Get High-Confidence Fire Regions
+2️⃣ Get High Confidence Fire Regions
+POST /api/fires/get_hight_regions_area
 
 `POST /api/fires/get_hight_regions_area`
 
@@ -76,7 +79,6 @@ Returns an **HTML map page** showing detected fire locations.
 {
   "country": "india",
   "state": "up",
-  "source": "VIIRS_SNPP_NRT",
   "day_range": 3
 }
 ```
