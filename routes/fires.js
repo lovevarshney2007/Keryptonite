@@ -5,7 +5,9 @@ import {
   getHighConfidence,
   analyzeImage,
   chatWithAI, // Import the new function
+  data_analyser
 } from "../Services/pythonService.js";
+
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -39,6 +41,17 @@ router.post("/get_hight_regions_area", async (req, res) => {
     res.status(500).json({ error: "get_hight_regions_area failed" });
   }
 });
+
+router.get("/data_analyser", async (req, res) => {
+  try {
+    const data = await data_analyser(req.query);
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "data analyser failed" });
+  }
+});
+
 
 router.post("/draw_boxes_fire", upload.single("image"), async (req, res) => {
   try {

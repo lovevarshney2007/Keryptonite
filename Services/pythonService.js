@@ -44,6 +44,19 @@ export async function getHighConfidence(params) {
   return res.data;
 }
 
+export async function data_analyser(params) {
+  const res = await axios.get(
+    `${PYTHON_BASE}/api/data_analyser/data_analyser`,
+    {
+      params: {
+        country: params.country,
+      },
+    }
+  );
+
+  return res.data;
+}
+
 
 export async function analyzeImage(file) {
   const form = new FormData();
