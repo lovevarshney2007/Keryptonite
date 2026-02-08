@@ -77,7 +77,7 @@ export async function analyzeImage(file) {
 
 export async function chatWithAI(userId, message) {
   // Proxies the chat request to the Python backend
-  const res = await axios.post(`http://54.196.216.231:8000/chat`, {
+  const res = await axios.post(`http://51.20.3.113:8005/chat`, {
     user_id: userId,
     message: message,
   });
@@ -87,7 +87,7 @@ export async function chatWithAI(userId, message) {
 
 export async function getChatHistory(userId) {
   // Proxies the history request to the Python backend
-  const res = await axios.get(`http://54.196.216.231:8000/chat/history/${userId}`);
+  const res = await axios.get(`http://51.20.3.113:8005/chat/history/${userId}`);
 
   return res.data;
 }
